@@ -1,0 +1,1453 @@
+{
+  "name": "Autonomous Market Researcher podcast",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 7,
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        784
+      ],
+      "id": "ed2284d9-a374-43d7-9960-360e7730ed0c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        576
+      ],
+      "id": "54eb936f-fb6a-4d31-8d10-cc3f3912591e",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "mode": "list",
+          "cachedResultName": "Get Competitors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        688
+      ],
+      "id": "062fb425-4492-4e2b-8a9c-9e234edcbca2",
+      "name": "Get Competitors",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MlJ3HeW0e9zM3mWe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        784,
+        912
+      ],
+      "id": "81124599-8351-42ee-8ffa-eb6c86b92259",
+      "name": "Perplexity News",
+      "credentials": {
+        "perplexityApi": {
+          "id": "t0rjjFIhnSsFkDxC",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        896
+      ],
+      "id": "32095258-5a14-4076-90d9-a18009479c69",
+      "name": "Perplexity Sentiment",
+      "credentials": {
+        "perplexityApi": {
+          "id": "t0rjjFIhnSsFkDxC",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        896
+      ],
+      "id": "b0efaf06-3e63-4787-a5c8-e855e7c72d7f",
+      "name": "Think"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        912
+      ],
+      "id": "5a11c560-89c6-47fb-b6a0-4ab9a815c8aa",
+      "name": "Think1"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Competitor Name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        432,
+        688
+      ],
+      "id": "af1102ba-5913-44f7-b705-86a8061b4469",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "content": "## Sequence agents for correct behavior\nDeterministic ordering of steps means that agent performs tasks each time\n\nProblem: Time to completion",
+        "width": 2192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        240
+      ],
+      "id": "2c985d0f-cae5-4930-a736-d3a7131c0593",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "model": "sonar-pro",
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -1296
+      ],
+      "id": "154a206e-2cfe-4bef-b54a-a4ba875fff7c",
+      "name": "Message a model in Perplexity",
+      "credentials": {
+        "perplexityApi": {
+          "id": "t0rjjFIhnSsFkDxC",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This tool allows you to get information about my competitors",
+        "documentId": {
+          "__rl": true,
+          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "mode": "list",
+          "cachedResultName": "Get Competitors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        800,
+        -1296
+      ],
+      "id": "63da4bf9-bb30-4685-bb23-b66a9fcdcefc",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MlJ3HeW0e9zM3mWe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "ilan.rotenberg@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        1136,
+        -1296
+      ],
+      "id": "37fd813b-97a9-4b5b-8b84-695e2eeb6c86",
+      "name": "Send a message in Gmail",
+      "webhookId": "e7bf7262-37ca-41f8-a0af-15e0b9f6c49a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZiFE6d0Ovpo7Lcz7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 7,
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        144,
+        -1536
+      ],
+      "id": "51a1d71c-446e-4811-b41f-6776f8b11afd",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        -1296
+      ],
+      "id": "b31fd146-e5a1-424d-8e9b-5679ff44a94d",
+      "name": "Think3"
+    },
+    {
+      "parameters": {
+        "content": "## Agent misses important updates from market, update prompt to be more specific\n\nProblems: \n1. Too many tokens\n2. Agent does too many jobs and does not provide great results",
+        "width": 2192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        32,
+        -1888
+      ],
+      "id": "12b55c4b-7e5c-4e4a-97e3-f827aa4634e4",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-5-20250929",
+          "cachedResultName": "Claude Sonnet 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        -1296
+      ],
+      "id": "3db29d89-63d7-4a3b-9f93-0c8ec290b3c4",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "pjgeqKUe7Pww96dj",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 7,
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        16,
+        -368
+      ],
+      "id": "1fa04d78-2b58-42cf-9fd1-455b784f0c38",
+      "name": "Schedule Trigger2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "mode": "list",
+          "cachedResultName": "Get Competitors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        -368
+      ],
+      "id": "95059810-e00f-4661-b625-81d14eedea6f",
+      "name": "Get Competitors1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MlJ3HeW0e9zM3mWe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "gpt-5.2"
+        },
+        "builtInTools": {},
+        "options": {
+          "reasoningEffort": "low"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        752,
+        -432
+      ],
+      "id": "e576a09a-2560-4d66-ae20-4af369f9cce5",
+      "name": "OpenAI News Agent1",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXxJk54TVuaLKpA0",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "gpt-5.2"
+        },
+        "builtInTools": {},
+        "options": {
+          "reasoningEffort": "low"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        768,
+        0
+      ],
+      "id": "bd28648d-4871-4127-a925-e6b5cbdb3587",
+      "name": "OpenAI Sentiment Agent1",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXxJk54TVuaLKpA0",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        -448
+      ],
+      "id": "ce6727fd-bd3a-4e0c-9c56-9a10a2de879d",
+      "name": "Perplexity News1",
+      "credentials": {
+        "perplexityApi": {
+          "id": "t0rjjFIhnSsFkDxC",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        0
+      ],
+      "id": "3cd2773a-3311-4117-8386-5ff8df908930",
+      "name": "Perplexity Sentiment1",
+      "credentials": {
+        "perplexityApi": {
+          "id": "t0rjjFIhnSsFkDxC",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "gpt-5.2"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1488,
+        -128
+      ],
+      "id": "12e23ca6-40a0-4ce6-8df9-32ddfb201b97",
+      "name": "OpenAI Synthesis1",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXxJk54TVuaLKpA0",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "ilan.rotenberg@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', `Weekly Competitor Intelligence Report`, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        1792,
+        -128
+      ],
+      "id": "65d64469-d8c1-4ef7-967b-f92b5cfe3666",
+      "name": "Send Gmail1",
+      "webhookId": "11b5b03e-74f2-4a90-9394-a4a4eaf69279",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZiFE6d0Ovpo7Lcz7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        912,
+        0
+      ],
+      "id": "01c9d84d-d575-48e1-87f2-88dd8986536a",
+      "name": "Think4"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        944,
+        -432
+      ],
+      "id": "c1d41e8b-579f-4c2f-b880-973a376685d8",
+      "name": "Think5"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        1632,
+        -128
+      ],
+      "id": "fb745299-4b67-4256-9684-b7800bff0e56",
+      "name": "Think6"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Competitor Name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -368
+      ],
+      "id": "aae17a01-eaa0-4075-b328-ae50381a1152",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "content": "## Separate agent work to reduce token usage and improve results\nThis allows each agent to do its job more effectively and reduces the number of tokens used per node\n\nProblem: n8n is a sequential tool, does not natively complete steps in parallel",
+        "width": 2192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        -816
+      ],
+      "id": "7c8b5ba5-6720-431f-84cf-0d8451b60bcc",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "sendTo": "ilan.rotenberg@gmail.com",
+        "subject": "Agent competitive intelligence",
+        "message": "={{ $json.output[0].content[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        688
+      ],
+      "id": "539b5c04-52b4-46ff-8138-da1a68f5ac77",
+      "name": "Send a message",
+      "webhookId": "43560265-b08e-4328-b82f-d9b8ed228763",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZiFE6d0Ovpo7Lcz7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-5-20250929",
+          "cachedResultName": "Claude Sonnet 4.5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        928,
+        896
+      ],
+      "id": "bb0a95a2-5d04-4b55-96a7-d483ebbeab8c",
+      "name": "Anthropic Chat Model2",
+      "credentials": {
+        "anthropicApi": {
+          "id": "pjgeqKUe7Pww96dj",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        224,
+        -2432
+      ],
+      "id": "4cc3adc7-1a34-4433-b919-572dbb56f278",
+      "name": "When chat message received",
+      "webhookId": "1acb62f8-038c-4915-9273-8deebc4df724"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.1",
+          "mode": "list",
+          "cachedResultName": "gpt-5.1"
+        },
+        "builtInTools": {},
+        "options": {
+          "reasoningEffort": "low"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        256,
+        -2224
+      ],
+      "id": "9c3ee338-3fb2-47e2-886c-40c5982b43e7",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXxJk54TVuaLKpA0",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        416,
+        -2224
+      ],
+      "id": "fc7dfbbe-9ace-4a9e-a3e7-84e1448ace58",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are an autonomous Market Research Agent.\n\nYour job is to complete the user request end-to-end using the available tools. Do not ask clarifying questions. Make assumptions and proceed. Never wait for input once the task begins.\n\nProduce all requested outputs (e.g., Notion pages, databases, emails).\n\n# CORE LOOP (STRICT)\nRun the following loop until the task is fully complete:\n\n1. PLAN  \n- Create a concise plan describing what to search, which tools to call, and what outputs are required.  \n- Store the plan in the Think tool.\n\n2. EXECUTE  \n- Use tools to gather data, validate findings, refine queries, and fill gaps.  \n- If results are insufficient, automatically broaden scope, change angles, or retry with adjusted searches.  \n- Do not stop because of missing data; adapt and continue.\n\n3. UPDATE  \n- After each tool call, evaluate the result.  \n- Update the plan and store the new plan in the Think tool.\n\n4. FINISH  \n- Stop only when every part of the user’s request is completed and all outputs are created.\n\n# TOOL RULES\n\n## THINK TOOL\nUse this as your working memory and scratchpad.  \nDocument:\n- Current plan\n- Progress across steps\n- Summaries of findings\n- Decisions and assumptions  \nKeep it concise. Do not store large text.\n\n## RESEARCH TOOLS (e.g., Perplexity)\nUse them to:\n- Find recent news and announcements\n- Collect competitor updates\n- Identify new product releases\n- Scrape user sentiment and complaints\n- Gather external analyses\n\nDo not rerun queries unless the user request demands more results.\n\n## SHEETS\nIf a sheet with competitors or inputs exists, read it and treat its data as authoritative.\n\n## NOTION\nWhen asked to create reports or databases:\n- Create the database if it does not exist using the right title from the beginning\n- Add one page per competitor\n- Set properties:\n  - Competitor Name\n  - Report Date\n- Add Findings as bullet points in the page content, NEVER as page properties\n- Follow consistent formatting rules (no URLs in properties, use inline links only in content)\n\n## EMAIL\nWhen sending emails, output valid HTML. Keep it scannable.\n\n# OUTPUT STYLE\n- Structured, clean summaries only\n- No filler\n- Use inline links\n- Consistent formatting across all competitors\n- When a competitor has no updates, output exactly: “No updates”\n- Do not include footer links\n\n# BEHAVIOR CONSTRAINTS\n- Never ask questions\n- Never pause execution\n- Always choose the next best action automatically\n- Handle ambiguity through assumptions\n- Iterate until the task is complete\n- Expand search scope when needed\n- Guarantee final output satisfies every part of the user’s request",
+          "maxIterations": 30
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        432,
+        -2432
+      ],
+      "id": "15960e3e-86d1-4595-a1af-823556244996",
+      "name": "Market Research Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        544,
+        -2224
+      ],
+      "id": "ec9f0ccd-794d-475b-9122-1c624b9101e4",
+      "name": "Think2"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "This tool allows you to get information about my competitors",
+        "documentId": {
+          "__rl": true,
+          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "mode": "list",
+          "cachedResultName": "Get Competitors",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        688,
+        -2224
+      ],
+      "id": "0bc87b1a-7c46-4b27-98f9-43f1957d4160",
+      "name": "Get row(s) in sheet in Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "MlJ3HeW0e9zM3mWe",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "messages": {
+          "message": [
+            {
+              "content": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('message0_Text', ``, 'string') }}"
+            }
+          ]
+        },
+        "simplify": true,
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.perplexityTool",
+      "typeVersion": 1,
+      "position": [
+        848,
+        -2224
+      ],
+      "id": "479a396d-2003-4556-8b63-96315b07befc",
+      "name": "Message a model in Perplexity1",
+      "credentials": {
+        "perplexityApi": {
+          "id": "t0rjjFIhnSsFkDxC",
+          "name": "Perplexity account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "ilan.rotenberg@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        1136,
+        -2224
+      ],
+      "id": "caca27cf-c3cd-401a-bfa1-a737417796d1",
+      "name": "Send a message in Gmail1",
+      "webhookId": "e17a5f32-ae6f-40cf-9b77-e9b3aeaec211",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZiFE6d0Ovpo7Lcz7",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Simple agent handles all aspects of competitive intelligence gathering\nSource: Pawel Huryn from Product Compass\nhttps://docs.google.com/document/d/1cDHmSXW7O9MyqjZlMcvSeCr0NdYk9AH8A8-aTreIPrQ/edit?tab=t.0",
+        "width": 2192
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        64,
+        -2704
+      ],
+      "id": "cda94c59-a082-47f7-b109-f6851f20845e",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are a highly skilled AI competitive intelligence researcher who is searching for interesting facts and angles about competitive products that could help you get a sense of what they are working on and how they are positioning themselves in the market. \n\n<goal>\nFind competitor news from the last 7 days: funding, products, partnerships, executive changes, and user sentiment.\n</goal>\n\n<tools>\n- **Google Sheets**: Read competitor list\n- **Perplexity**: Execute searches\n- **Think**: Track progress between searches (REQUIRED)\n- **Gmail**: Send final report\n</tools>\n\n<execution_loop>\n\nSTEP 1: GET COMPETITORS\n- Use Google Sheets tool to read competitor list\n- Use Think tool to record the list\n\nSTEP 2: RESEARCH EACH COMPETITOR\nFor EACH competitor, run these 3 searches in sequence:\n\nSearch A - Official News. This will get you any official press releases. Example prompt below:\n\"[Competitor Name]\" site:businesswire.com OR site:prnewswire.com OR funding OR \"series\" OR acquisition\n\nSearch B - Product & Partnerships. This will get you any new releases and partner info. Example prompt below:\n\"[Competitor Name]\" launch OR partnership OR integration OR announces OR \"new feature\"\n\nSearch C - Industry Coverage. This will get you any articles related to the competitor. Example prompt below:\n\"[Competitor Name]\" site:techcrunch.com OR site:pymnts.com OR site:reddit.com\n\nAfter EACH search:\n→ Use Think tool to record findings (max 3 per search)\n→ Note: competitor name, search type, key findings with URLs\n\nIf search returns nothing, simplify query and retry once.\n\nSTEP 3: VERIFY COVERAGE\nBefore synthesizing, check via Think tool:\n- Did each competitor get all 3 searches? If not, go back.\n- Total findings per competitor recorded?\n\nSTEP 4: GENERATE REPORT\n- Compile findings from Think tool notes\n- Deduplicate (same story from multiple searches)\n- Prioritize: funding > products > partnerships > sentiment\n- Format per output contract below\n\nSTEP 5: SEND EMAIL\n- Convert markdown to HTML snippet (no full HTML document)\n- Use Gmail tool to send\n\n</execution_loop>\n\n<critical_rules>\n- ALWAYS use Think tool between Perplexity calls\n- NEVER skip a competitor or search category\n- NEVER proceed to report until all competitors researched\n- If a competitor has name variations (e.g., \"Swap Commerce\" / \"Swap\"), search both\n- Max 5 findings per competitor in final report\n</critical_rules>\n\n<output_format>\n\n## Competitor Monitoring Report (Last 7 Days)\n*Generated: [DATE]*\n\n### [Competitor Name]\n**Funding:** (if any)\n- Finding with [source](url)\n\n**Product/Partnerships:** (if any)\n- Finding with [source](url)\n\n**Sentiment:** (if any)\n- Finding with [source](url)\n\n(If nothing found: \"No significant updates\")\n\n---\n(Repeat for each competitor)\n\n</output_format>\n\n<example>\n## Competitor Monitoring Report (Last 7 Days)\n*Generated: January 22, 2026*\n\n### Swap Commerce\n**Funding:**\n- Raised $100M Series C co-led by DST Global and ICONIQ ([BusinessWire](https://businesswire.com/...))\n\n**Product:**\n- Launched Agentic Commerce Platform for demand planning ([TechCrunch](https://techcrunch.com/...))\n\n### Global-e\n- Q3 earnings: 23% YoY GMV growth ([PR Newswire](https://prnewswire.com/...))\n\n### OpenBorder\nNo significant updates\n\n### DHL\n- Integration with Shopify Markets announced ([BusinessWire](https://businesswire.com/...))\n</example>",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        608,
+        -1536
+      ],
+      "id": "b6f6a327-e357-438f-aff9-1be3bd83b280",
+      "name": "Deeper Market Research AI Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a business news researcher specializing in official announcements.\n\n<input>\nHere are the competitors to research:\n{{ $json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for business news from the last 7 days covering:\n- Funding rounds (Seed, Series A/B/C/D, raised capital, acquisitions, M&A, IPO)\n- Product launches, feature releases, platform updates, pricing changes\n- Partnerships, integrations, alliances, ecosystem announcements\n\nExecute TWO searches per competitor:\n\n1. Official announcements:\n   \"[Competitor Name]\" site:businesswire.com OR site:prnewswire.com OR site:globenewswire.com\n\n2. Funding + product + partnership news:\n   \"[Competitor Name]\" funding OR launch OR partnership OR \"series\" OR raised OR announces OR integration\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Search for name variations if applicable (e.g., \"Swap Commerce\" AND \"Swap\")\n- Extract maximum 5 findings per competitor across both searches\n- Include source URL and approximate date for each finding\n- If no news found, note \"no findings\" for that competitor\n- Process all competitors before outputting results\n- search Linkedin\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"funding|product|partnership\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        -608
+      ],
+      "id": "2b38e1b6-636e-4309-99cc-1dd311344d4a",
+      "name": "News Research Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a user sentiment and market perception researcher.\n\n<input>\nHere are the competitors to research:\n{{ $('Aggregate1').item.json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for user sentiment and issues from the last 7 days:\n- User complaints or frustrations on Reddit, LinkedIn, or X\n- Service outages, bugs, or reliability issues\n- Negative reviews or critical coverage\n- Customer churn signals or cancellation discussions\n- Support quality issues\n\nExecute ONE search per competitor:\n   \"[Competitor Name]\" site:reddit.com OR site:x.com OR site:linkedin.com OR complaint OR outage OR issue OR problem OR review OR \"switched from\"\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Focus on genuine user feedback, not marketing content\n- Note the sentiment (negative, mixed, or neutral observation)\n- Extract maximum 3 findings per competitor\n- Include source URL for each finding\n- If no significant sentiment found, that's fine—note \"no findings\"\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"sentiment\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary of the issue or feedback\",\n        \"sentiment\": \"negative|mixed|neutral\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        -176
+      ],
+      "id": "0c008d44-4674-47d6-b489-a31687776069",
+      "name": "Sentiment Research Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a competitive intelligence report writer.\n\n<input>\nYou have received research findings from two specialized agents:\n\n1. NEWS AGENT FINDINGS (funding, products, partnerships):\n{{ $('News Research Agent').item.json.output }}\n\n2. SENTIMENT AGENT FINDINGS (user feedback, issues):\n{{ $('Sentiment Research Agent').item.json.output }}\n</input>\n\n<task>\n1. Parse both JSON inputs\n2. Merge findings by competitor\n3. Deduplicate any overlapping news (same story from both agents)\n4. Prioritize by significance: funding > products > partnerships > sentiment\n5. Format into the final report structure below\n</task>\n\n<output_format>\nGenerate a clean markdown report:\n\n## Competitor Monitoring Report (Last 30 Days)\n*Generated: [Today's Date]*\n\n### [Competitor Name]\n**Key News:**\n- [Most significant finding] ([source](url))\n- [Second finding] ([source](url))\n\n**User Sentiment:** (if any findings)\n- [Sentiment finding] ([source](url))\n\n---\n\n(Repeat for each competitor)\n\nIf a competitor has no findings in any category, write:\n### [Competitor Name]\nNo significant updates found\n\n---\n\nRULES:\n- Maximum 5 bullet points per competitor total\n- Lead with the biggest news (funding rounds, major launches)\n- Include specific numbers when available ($100M raised, 23% growth, etc.)\n- Keep bullets concise—one line each\n- No duplicate information\n</output_format>\n\nAfter generating the markdown report, convert it to a clean HTML snippet (not full HTML document) suitable for email body, then send via Gmail.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1488,
+        -368
+      ],
+      "id": "23db73c3-d1dc-4484-8469-ef4183a7c4b1",
+      "name": "Synthesis Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a business news researcher specializing in official announcements.\n\n<input>\nHere are the competitors to research:\n{{ $json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for business news from the last 7 days covering:\n- Funding rounds (Seed, Series A/B/C/D, raised capital, acquisitions, M&A, IPO)\n- Product launches, feature releases, platform updates, pricing changes\n- Partnerships, integrations, alliances, ecosystem announcements\n\nExecute TWO searches per competitor:\n\n1. Official announcements:\n   \"[Competitor Name]\" site:businesswire.com OR site:prnewswire.com OR site:globenewswire.com\n\n2. Funding + product + partnership news:\n   \"[Competitor Name]\" funding OR launch OR partnership OR \"series\" OR raised OR announces OR integration\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Search for name variations if applicable (e.g., \"Swap Commerce\" AND \"Swap\")\n- Extract maximum 5 findings per competitor across both searches\n- Include source URL and approximate date for each finding\n- If no news found, note \"no findings\" for that competitor\n- Process all competitors before outputting results\n- search Linkedin\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"funding|product|partnership\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
+        "options": {
+          "maxIterations": 20
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        608,
+        688
+      ],
+      "id": "98dbf77a-f3db-443a-b7ff-d4f15d0811f1",
+      "name": "Sequential News Agent"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a user sentiment and market perception researcher.\n\n<input>\nHere are the competitors to research:\n{{ $('Aggregate').item.json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for user sentiment and issues from the last 7 days:\n- User complaints or frustrations on Reddit, LinkedIn, or X\n- Service outages, bugs, or reliability issues\n- Negative reviews or critical coverage\n- Customer churn signals or cancellation discussions\n- Support quality issues\n\nExecute ONE search per competitor similar to this:\n   \"[Competitor Name]\" site:reddit.com OR site:x.com OR site:linkedin.com OR complaint OR outage OR issue OR problem OR review OR \"switched from\"\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Focus on genuine user feedback, not marketing content\n- Note the sentiment (negative, mixed, or neutral observation)\n- Extract maximum 3 findings per competitor\n- Include source URL for each finding\n- If no significant sentiment found, that's fine—note \"no findings\"\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"sentiment\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary of the issue or feedback\",\n        \"sentiment\": \"negative|mixed|neutral\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        992,
+        688
+      ],
+      "id": "fea8a51b-3b28-4637-a832-77df87107864",
+      "name": "Sequential Sentiment Agent"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "GPT-5.2"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are a competitive intelligence report writer.\n\n<input>\nYou have received research findings from two specialized agents:\n\n1. NEWS AGENT FINDINGS (funding, products, partnerships):\n{{ $('Sequential News Agent').item.json.output }}\n\n2. SENTIMENT AGENT FINDINGS (user feedback, issues):\n{{ $('Sequential Sentiment Agent').item.json.output }}\n</input>\n\n<task>\n1. Parse both JSON inputs\n2. Merge findings by competitor\n3. Deduplicate any overlapping news (same story from both agents)\n4. Prioritize by significance: funding > products > partnerships > sentiment\n5. Format into the final report structure below as HTML\n</task>\n\n<output_format>\nGenerate a clean markdown report:\n\n## Competitor Monitoring Report (Last 30 Days)\n*Generated: [Today's Date]*\n\n### [Competitor Name]\n**Key News:**\n- [Most significant finding] ([source](url))\n- [Second finding] ([source](url))\n\n**User Sentiment:** (if any findings)\n- [Sentiment finding] ([source](url))\n\n---\n\n(Repeat for each competitor)\n\nIf a competitor has no findings in any category, write:\n### [Competitor Name]\nNo significant updates found\n\n---\n\nRULES:\n- Maximum 5 bullet points per competitor total\n- Lead with the biggest news (funding rounds, major launches)\n- Include specific numbers when available ($100M raised, 23% growth, etc.)\n- Keep bullets concise—one line each\n- No duplicate information\n</output_format>\n\nAfter generating the markdown report, convert it to a clean HTML snippet (not full HTML document) suitable for email body, then send via Gmail."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        1296,
+        688
+      ],
+      "id": "a346999d-d749-4215-9a6f-47cff4426b6d",
+      "name": "Synthesize data",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXxJk54TVuaLKpA0",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "gpt-5.2"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        896
+      ],
+      "id": "43f6217c-7f6b-442d-80d4-31bf129ef86b",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "fXxJk54TVuaLKpA0",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Competitors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Competitors",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Competitors": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity News": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sequential News Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity Sentiment": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sequential Sentiment Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sequential Sentiment Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sequential News Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Sequential News Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model in Perplexity": {
+      "ai_tool": [
+        [
+          {
+            "node": "Deeper Market Research AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "Deeper Market Research AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "Deeper Market Research AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Deeper Market Research AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think3": {
+      "ai_tool": [
+        [
+          {
+            "node": "Deeper Market Research AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Deeper Market Research AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Get Competitors1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Competitors1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI News Agent1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "News Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Sentiment Agent1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sentiment Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity News1": {
+      "ai_tool": [
+        [
+          {
+            "node": "News Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perplexity Sentiment1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sentiment Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Synthesis1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Synthesis Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Synthesis Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think4": {
+      "ai_tool": [
+        [
+          {
+            "node": "Sentiment Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think5": {
+      "ai_tool": [
+        [
+          {
+            "node": "News Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think6": {
+      "ai_tool": [
+        [
+          {
+            "node": "Synthesis Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "News Research Agent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Sentiment Research Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sequential Sentiment Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think2": {
+      "ai_tool": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model in Perplexity1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Market Research Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "News Research Agent": {
+      "main": [
+        [
+          {
+            "node": "Synthesis Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sentiment Research Agent": {
+      "main": [
+        [
+          {
+            "node": "Synthesis Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sequential News Agent": {
+      "main": [
+        [
+          {
+            "node": "Sequential Sentiment Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sequential Sentiment Agent": {
+      "main": [
+        [
+          {
+            "node": "Synthesize data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Synthesize data": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Sequential News Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "4c7a6064-16da-4c5a-8cad-61462d5ff7d2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "588ff3306f03a6f01ec43b98ef52a37105af90ec6afe9a80d7b2657449961d3d"
+  },
+  "id": "BtnGaAsWQiMEoCwt",
+  "tags": []
+}
