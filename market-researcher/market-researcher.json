@@ -36,17 +36,17 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "value": "your-spreadsheet-id",
           "mode": "list",
           "cachedResultName": "Get Competitors",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit#gid=0"
         },
         "options": {}
       },
@@ -60,8 +60,8 @@
       "name": "Get Competitors",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "MlJ3HeW0e9zM3mWe",
-          "name": "Google Sheets account"
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
         }
       }
     },
@@ -87,8 +87,8 @@
       "name": "Perplexity News",
       "credentials": {
         "perplexityApi": {
-          "id": "t0rjjFIhnSsFkDxC",
-          "name": "Perplexity account"
+          "id": "your-credential-id",
+          "name": "Your Perplexity API"
         }
       }
     },
@@ -114,8 +114,8 @@
       "name": "Perplexity Sentiment",
       "credentials": {
         "perplexityApi": {
-          "id": "t0rjjFIhnSsFkDxC",
-          "name": "Perplexity account"
+          "id": "your-credential-id",
+          "name": "Your Perplexity API"
         }
       }
     },
@@ -198,8 +198,8 @@
       "name": "Message a model in Perplexity",
       "credentials": {
         "perplexityApi": {
-          "id": "t0rjjFIhnSsFkDxC",
-          "name": "Perplexity account"
+          "id": "your-credential-id",
+          "name": "Your Perplexity API"
         }
       }
     },
@@ -209,17 +209,17 @@
         "toolDescription": "This tool allows you to get information about my competitors",
         "documentId": {
           "__rl": true,
-          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "value": "your-spreadsheet-id",
           "mode": "list",
           "cachedResultName": "Get Competitors",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit#gid=0"
         },
         "options": {}
       },
@@ -233,14 +233,14 @@
       "name": "Get row(s) in sheet in Google Sheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "MlJ3HeW0e9zM3mWe",
-          "name": "Google Sheets account"
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
         }
       }
     },
     {
       "parameters": {
-        "sendTo": "ilan.rotenberg@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
         "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
         "options": {}
@@ -253,11 +253,11 @@
       ],
       "id": "37fd813b-97a9-4b5b-8b84-695e2eeb6c86",
       "name": "Send a message in Gmail",
-      "webhookId": "e7bf7262-37ca-41f8-a0af-15e0b9f6c49a",
+      "webhookId": "your-webhook-id",
       "credentials": {
         "gmailOAuth2": {
-          "id": "ZiFE6d0Ovpo7Lcz7",
-          "name": "Gmail account"
+          "id": "your-credential-id",
+          "name": "Your Gmail Account"
         }
       }
     },
@@ -326,8 +326,8 @@
       "name": "Anthropic Chat Model",
       "credentials": {
         "anthropicApi": {
-          "id": "pjgeqKUe7Pww96dj",
-          "name": "Anthropic account"
+          "id": "your-credential-id",
+          "name": "Your Anthropic API"
         }
       }
     },
@@ -355,17 +355,17 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "value": "your-spreadsheet-id",
           "mode": "list",
           "cachedResultName": "Get Competitors",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit#gid=0"
         },
         "options": {}
       },
@@ -379,8 +379,8 @@
       "name": "Get Competitors1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "MlJ3HeW0e9zM3mWe",
-          "name": "Google Sheets account"
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
         }
       }
     },
@@ -407,8 +407,8 @@
       "name": "OpenAI News Agent1",
       "credentials": {
         "openAiApi": {
-          "id": "fXxJk54TVuaLKpA0",
-          "name": "OpenAi account"
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
         }
       }
     },
@@ -435,8 +435,8 @@
       "name": "OpenAI Sentiment Agent1",
       "credentials": {
         "openAiApi": {
-          "id": "fXxJk54TVuaLKpA0",
-          "name": "OpenAi account"
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
         }
       }
     },
@@ -462,8 +462,8 @@
       "name": "Perplexity News1",
       "credentials": {
         "perplexityApi": {
-          "id": "t0rjjFIhnSsFkDxC",
-          "name": "Perplexity account"
+          "id": "your-credential-id",
+          "name": "Your Perplexity API"
         }
       }
     },
@@ -489,8 +489,8 @@
       "name": "Perplexity Sentiment1",
       "credentials": {
         "perplexityApi": {
-          "id": "t0rjjFIhnSsFkDxC",
-          "name": "Perplexity account"
+          "id": "your-credential-id",
+          "name": "Your Perplexity API"
         }
       }
     },
@@ -515,14 +515,14 @@
       "name": "OpenAI Synthesis1",
       "credentials": {
         "openAiApi": {
-          "id": "fXxJk54TVuaLKpA0",
-          "name": "OpenAi account"
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
         }
       }
     },
     {
       "parameters": {
-        "sendTo": "ilan.rotenberg@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', `Weekly Competitor Intelligence Report`, 'string') }}",
         "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
         "options": {}
@@ -535,11 +535,11 @@
       ],
       "id": "65d64469-d8c1-4ef7-967b-f92b5cfe3666",
       "name": "Send Gmail1",
-      "webhookId": "11b5b03e-74f2-4a90-9394-a4a4eaf69279",
+      "webhookId": "your-webhook-id",
       "credentials": {
         "gmailOAuth2": {
-          "id": "ZiFE6d0Ovpo7Lcz7",
-          "name": "Gmail account"
+          "id": "your-credential-id",
+          "name": "Your Gmail Account"
         }
       }
     },
@@ -612,7 +612,7 @@
     },
     {
       "parameters": {
-        "sendTo": "ilan.rotenberg@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "Agent competitive intelligence",
         "message": "={{ $json.output[0].content[0].text }}",
         "options": {}
@@ -625,11 +625,11 @@
       ],
       "id": "539b5c04-52b4-46ff-8138-da1a68f5ac77",
       "name": "Send a message",
-      "webhookId": "43560265-b08e-4328-b82f-d9b8ed228763",
+      "webhookId": "your-webhook-id",
       "credentials": {
         "gmailOAuth2": {
-          "id": "ZiFE6d0Ovpo7Lcz7",
-          "name": "Gmail account"
+          "id": "your-credential-id",
+          "name": "Your Gmail Account"
         }
       }
     },
@@ -653,8 +653,8 @@
       "name": "Anthropic Chat Model2",
       "credentials": {
         "anthropicApi": {
-          "id": "pjgeqKUe7Pww96dj",
-          "name": "Anthropic account"
+          "id": "your-credential-id",
+          "name": "Your Anthropic API"
         }
       }
     },
@@ -670,7 +670,7 @@
       ],
       "id": "4cc3adc7-1a34-4433-b919-572dbb56f278",
       "name": "When chat message received",
-      "webhookId": "1acb62f8-038c-4915-9273-8deebc4df724"
+      "webhookId": "your-webhook-id"
     },
     {
       "parameters": {
@@ -695,8 +695,8 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "fXxJk54TVuaLKpA0",
-          "name": "OpenAi account"
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
         }
       }
     },
@@ -714,7 +714,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=You are an autonomous Market Research Agent.\n\nYour job is to complete the user request end-to-end using the available tools. Do not ask clarifying questions. Make assumptions and proceed. Never wait for input once the task begins.\n\nProduce all requested outputs (e.g., Notion pages, databases, emails).\n\n# CORE LOOP (STRICT)\nRun the following loop until the task is fully complete:\n\n1. PLAN  \n- Create a concise plan describing what to search, which tools to call, and what outputs are required.  \n- Store the plan in the Think tool.\n\n2. EXECUTE  \n- Use tools to gather data, validate findings, refine queries, and fill gaps.  \n- If results are insufficient, automatically broaden scope, change angles, or retry with adjusted searches.  \n- Do not stop because of missing data; adapt and continue.\n\n3. UPDATE  \n- After each tool call, evaluate the result.  \n- Update the plan and store the new plan in the Think tool.\n\n4. FINISH  \n- Stop only when every part of the user’s request is completed and all outputs are created.\n\n# TOOL RULES\n\n## THINK TOOL\nUse this as your working memory and scratchpad.  \nDocument:\n- Current plan\n- Progress across steps\n- Summaries of findings\n- Decisions and assumptions  \nKeep it concise. Do not store large text.\n\n## RESEARCH TOOLS (e.g., Perplexity)\nUse them to:\n- Find recent news and announcements\n- Collect competitor updates\n- Identify new product releases\n- Scrape user sentiment and complaints\n- Gather external analyses\n\nDo not rerun queries unless the user request demands more results.\n\n## SHEETS\nIf a sheet with competitors or inputs exists, read it and treat its data as authoritative.\n\n## NOTION\nWhen asked to create reports or databases:\n- Create the database if it does not exist using the right title from the beginning\n- Add one page per competitor\n- Set properties:\n  - Competitor Name\n  - Report Date\n- Add Findings as bullet points in the page content, NEVER as page properties\n- Follow consistent formatting rules (no URLs in properties, use inline links only in content)\n\n## EMAIL\nWhen sending emails, output valid HTML. Keep it scannable.\n\n# OUTPUT STYLE\n- Structured, clean summaries only\n- No filler\n- Use inline links\n- Consistent formatting across all competitors\n- When a competitor has no updates, output exactly: “No updates”\n- Do not include footer links\n\n# BEHAVIOR CONSTRAINTS\n- Never ask questions\n- Never pause execution\n- Always choose the next best action automatically\n- Handle ambiguity through assumptions\n- Iterate until the task is complete\n- Expand search scope when needed\n- Guarantee final output satisfies every part of the user’s request",
+          "systemMessage": "=You are an autonomous Market Research Agent.\n\nYour job is to complete the user request end-to-end using the available tools. Do not ask clarifying questions. Make assumptions and proceed. Never wait for input once the task begins.\n\nProduce all requested outputs (e.g., Notion pages, databases, emails).\n\n# CORE LOOP (STRICT)\nRun the following loop until the task is fully complete:\n\n1. PLAN  \n- Create a concise plan describing what to search, which tools to call, and what outputs are required.  \n- Store the plan in the Think tool.\n\n2. EXECUTE  \n- Use tools to gather data, validate findings, refine queries, and fill gaps.  \n- If results are insufficient, automatically broaden scope, change angles, or retry with adjusted searches.  \n- Do not stop because of missing data; adapt and continue.\n\n3. UPDATE  \n- After each tool call, evaluate the result.  \n- Update the plan and store the new plan in the Think tool.\n\n4. FINISH  \n- Stop only when every part of the user's request is completed and all outputs are created.\n\n# TOOL RULES\n\n## THINK TOOL\nUse this as your working memory and scratchpad.  \nDocument:\n- Current plan\n- Progress across steps\n- Summaries of findings\n- Decisions and assumptions  \nKeep it concise. Do not store large text.\n\n## RESEARCH TOOLS (e.g., Perplexity)\nUse them to:\n- Find recent news and announcements\n- Collect competitor updates\n- Identify new product releases\n- Scrape user sentiment and complaints\n- Gather external analyses\n\nDo not rerun queries unless the user request demands more results.\n\n## SHEETS\nIf a sheet with competitors or inputs exists, read it and treat its data as authoritative.\n\n## NOTION\nWhen asked to create reports or databases:\n- Create the database if it does not exist using the right title from the beginning\n- Add one page per competitor\n- Set properties:\n  - Competitor Name\n  - Report Date\n- Add Findings as bullet points in the page content, NEVER as page properties\n- Follow consistent formatting rules (no URLs in properties, use inline links only in content)\n\n## EMAIL\nWhen sending emails, output valid HTML. Keep it scannable.\n\n# OUTPUT STYLE\n- Structured, clean summaries only\n- No filler\n- Use inline links\n- Consistent formatting across all competitors\n- When a competitor has no updates, output exactly: \"No updates\"\n- Do not include footer links\n\n# BEHAVIOR CONSTRAINTS\n- Never ask questions\n- Never pause execution\n- Always choose the next best action automatically\n- Handle ambiguity through assumptions\n- Iterate until the task is complete\n- Expand search scope when needed\n- Guarantee final output satisfies every part of the user's request",
           "maxIterations": 30
         }
       },
@@ -744,17 +744,17 @@
         "toolDescription": "This tool allows you to get information about my competitors",
         "documentId": {
           "__rl": true,
-          "value": "1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o",
+          "value": "your-spreadsheet-id",
           "mode": "list",
           "cachedResultName": "Get Competitors",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit?usp=drivesdk"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xAp6plG9158GJyiVuQjtLISupwUJvthVXRQiTtvuV6o/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit#gid=0"
         },
         "options": {}
       },
@@ -768,8 +768,8 @@
       "name": "Get row(s) in sheet in Google Sheets1",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "MlJ3HeW0e9zM3mWe",
-          "name": "Google Sheets account"
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
         }
       }
     },
@@ -796,14 +796,14 @@
       "name": "Message a model in Perplexity1",
       "credentials": {
         "perplexityApi": {
-          "id": "t0rjjFIhnSsFkDxC",
-          "name": "Perplexity account"
+          "id": "your-credential-id",
+          "name": "Your Perplexity API"
         }
       }
     },
     {
       "parameters": {
-        "sendTo": "ilan.rotenberg@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
         "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
         "options": {}
@@ -816,17 +816,17 @@
       ],
       "id": "caca27cf-c3cd-401a-bfa1-a737417796d1",
       "name": "Send a message in Gmail1",
-      "webhookId": "e17a5f32-ae6f-40cf-9b77-e9b3aeaec211",
+      "webhookId": "your-webhook-id",
       "credentials": {
         "gmailOAuth2": {
-          "id": "ZiFE6d0Ovpo7Lcz7",
-          "name": "Gmail account"
+          "id": "your-credential-id",
+          "name": "Your Gmail Account"
         }
       }
     },
     {
       "parameters": {
-        "content": "## Simple agent handles all aspects of competitive intelligence gathering\nSource: Pawel Huryn from Product Compass\nhttps://docs.google.com/document/d/1cDHmSXW7O9MyqjZlMcvSeCr0NdYk9AH8A8-aTreIPrQ/edit?tab=t.0",
+        "content": "## Simple agent handles all aspects of competitive intelligence gathering\nSource: Pawel Huryn from Product Compass\nyour-reference-doc-url",
         "width": 2192
       },
       "type": "n8n-nodes-base.stickyNote",
@@ -871,7 +871,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are a user sentiment and market perception researcher.\n\n<input>\nHere are the competitors to research:\n{{ $('Aggregate1').item.json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for user sentiment and issues from the last 7 days:\n- User complaints or frustrations on Reddit, LinkedIn, or X\n- Service outages, bugs, or reliability issues\n- Negative reviews or critical coverage\n- Customer churn signals or cancellation discussions\n- Support quality issues\n\nExecute ONE search per competitor:\n   \"[Competitor Name]\" site:reddit.com OR site:x.com OR site:linkedin.com OR complaint OR outage OR issue OR problem OR review OR \"switched from\"\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Focus on genuine user feedback, not marketing content\n- Note the sentiment (negative, mixed, or neutral observation)\n- Extract maximum 3 findings per competitor\n- Include source URL for each finding\n- If no significant sentiment found, that's fine—note \"no findings\"\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"sentiment\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary of the issue or feedback\",\n        \"sentiment\": \"negative|mixed|neutral\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
+        "text": "=You are a user sentiment and market perception researcher.\n\n<input>\nHere are the competitors to research:\n{{ $('Aggregate1').item.json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for user sentiment and issues from the last 7 days:\n- User complaints or frustrations on Reddit, LinkedIn, or X\n- Service outages, bugs, or reliability issues\n- Negative reviews or critical coverage\n- Customer churn signals or cancellation discussions\n- Support quality issues\n\nExecute ONE search per competitor:\n   \"[Competitor Name]\" site:reddit.com OR site:x.com OR site:linkedin.com OR complaint OR outage OR issue OR problem OR review OR \"switched from\"\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Focus on genuine user feedback, not marketing content\n- Note the sentiment (negative, mixed, or neutral observation)\n- Extract maximum 3 findings per competitor\n- Include source URL for each finding\n- If no significant sentiment found, that's fine\u2014note \"no findings\"\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"sentiment\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary of the issue or feedback\",\n        \"sentiment\": \"negative|mixed|neutral\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -886,7 +886,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are a competitive intelligence report writer.\n\n<input>\nYou have received research findings from two specialized agents:\n\n1. NEWS AGENT FINDINGS (funding, products, partnerships):\n{{ $('News Research Agent').item.json.output }}\n\n2. SENTIMENT AGENT FINDINGS (user feedback, issues):\n{{ $('Sentiment Research Agent').item.json.output }}\n</input>\n\n<task>\n1. Parse both JSON inputs\n2. Merge findings by competitor\n3. Deduplicate any overlapping news (same story from both agents)\n4. Prioritize by significance: funding > products > partnerships > sentiment\n5. Format into the final report structure below\n</task>\n\n<output_format>\nGenerate a clean markdown report:\n\n## Competitor Monitoring Report (Last 30 Days)\n*Generated: [Today's Date]*\n\n### [Competitor Name]\n**Key News:**\n- [Most significant finding] ([source](url))\n- [Second finding] ([source](url))\n\n**User Sentiment:** (if any findings)\n- [Sentiment finding] ([source](url))\n\n---\n\n(Repeat for each competitor)\n\nIf a competitor has no findings in any category, write:\n### [Competitor Name]\nNo significant updates found\n\n---\n\nRULES:\n- Maximum 5 bullet points per competitor total\n- Lead with the biggest news (funding rounds, major launches)\n- Include specific numbers when available ($100M raised, 23% growth, etc.)\n- Keep bullets concise—one line each\n- No duplicate information\n</output_format>\n\nAfter generating the markdown report, convert it to a clean HTML snippet (not full HTML document) suitable for email body, then send via Gmail.",
+        "text": "=You are a competitive intelligence report writer.\n\n<input>\nYou have received research findings from two specialized agents:\n\n1. NEWS AGENT FINDINGS (funding, products, partnerships):\n{{ $('News Research Agent').item.json.output }}\n\n2. SENTIMENT AGENT FINDINGS (user feedback, issues):\n{{ $('Sentiment Research Agent').item.json.output }}\n</input>\n\n<task>\n1. Parse both JSON inputs\n2. Merge findings by competitor\n3. Deduplicate any overlapping news (same story from both agents)\n4. Prioritize by significance: funding > products > partnerships > sentiment\n5. Format into the final report structure below\n</task>\n\n<output_format>\nGenerate a clean markdown report:\n\n## Competitor Monitoring Report (Last 30 Days)\n*Generated: [Today's Date]*\n\n### [Competitor Name]\n**Key News:**\n- [Most significant finding] ([source](url))\n- [Second finding] ([source](url))\n\n**User Sentiment:** (if any findings)\n- [Sentiment finding] ([source](url))\n\n---\n\n(Repeat for each competitor)\n\nIf a competitor has no findings in any category, write:\n### [Competitor Name]\nNo significant updates found\n\n---\n\nRULES:\n- Maximum 5 bullet points per competitor total\n- Lead with the biggest news (funding rounds, major launches)\n- Include specific numbers when available ($100M raised, 23% growth, etc.)\n- Keep bullets concise\u2014one line each\n- No duplicate information\n</output_format>\n\nAfter generating the markdown report, convert it to a clean HTML snippet (not full HTML document) suitable for email body, then send via Gmail.",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -918,7 +918,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=You are a user sentiment and market perception researcher.\n\n<input>\nHere are the competitors to research:\n{{ $('Aggregate').item.json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for user sentiment and issues from the last 7 days:\n- User complaints or frustrations on Reddit, LinkedIn, or X\n- Service outages, bugs, or reliability issues\n- Negative reviews or critical coverage\n- Customer churn signals or cancellation discussions\n- Support quality issues\n\nExecute ONE search per competitor similar to this:\n   \"[Competitor Name]\" site:reddit.com OR site:x.com OR site:linkedin.com OR complaint OR outage OR issue OR problem OR review OR \"switched from\"\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Focus on genuine user feedback, not marketing content\n- Note the sentiment (negative, mixed, or neutral observation)\n- Extract maximum 3 findings per competitor\n- Include source URL for each finding\n- If no significant sentiment found, that's fine—note \"no findings\"\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"sentiment\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary of the issue or feedback\",\n        \"sentiment\": \"negative|mixed|neutral\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
+        "text": "=You are a user sentiment and market perception researcher.\n\n<input>\nHere are the competitors to research:\n{{ $('Aggregate').item.json['Competitor Name'] }}\n</input>\n\n<task>\nFor EACH competitor, search for user sentiment and issues from the last 7 days:\n- User complaints or frustrations on Reddit, LinkedIn, or X\n- Service outages, bugs, or reliability issues\n- Negative reviews or critical coverage\n- Customer churn signals or cancellation discussions\n- Support quality issues\n\nExecute ONE search per competitor similar to this:\n   \"[Competitor Name]\" site:reddit.com OR site:x.com OR site:linkedin.com OR complaint OR outage OR issue OR problem OR review OR \"switched from\"\n\nIMPORTANT RULES:\n- use the Think tool between calls to write down your plan, then store your results and update your plan\n- Focus on genuine user feedback, not marketing content\n- Note the sentiment (negative, mixed, or neutral observation)\n- Extract maximum 3 findings per competitor\n- Include source URL for each finding\n- If no significant sentiment found, that's fine\u2014note \"no findings\"\n</task>\n\n<output_format>\nReturn ONLY a valid JSON array with no additional text, markdown, or code fences:\n[\n  {\n    \"competitor\": \"Company Name\",\n    \"findings\": [\n      {\n        \"type\": \"sentiment\",\n        \"headline\": \"Brief headline\",\n        \"detail\": \"1-2 sentence summary of the issue or feedback\",\n        \"sentiment\": \"negative|mixed|neutral\",\n        \"source_url\": \"https://...\",\n        \"date\": \"YYYY-MM-DD or approximate\"\n      }\n    ]\n  }\n]\n\nIf no findings for a competitor, return empty findings array.\n</output_format>",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -941,7 +941,7 @@
         "responses": {
           "values": [
             {
-              "content": "=You are a competitive intelligence report writer.\n\n<input>\nYou have received research findings from two specialized agents:\n\n1. NEWS AGENT FINDINGS (funding, products, partnerships):\n{{ $('Sequential News Agent').item.json.output }}\n\n2. SENTIMENT AGENT FINDINGS (user feedback, issues):\n{{ $('Sequential Sentiment Agent').item.json.output }}\n</input>\n\n<task>\n1. Parse both JSON inputs\n2. Merge findings by competitor\n3. Deduplicate any overlapping news (same story from both agents)\n4. Prioritize by significance: funding > products > partnerships > sentiment\n5. Format into the final report structure below as HTML\n</task>\n\n<output_format>\nGenerate a clean markdown report:\n\n## Competitor Monitoring Report (Last 30 Days)\n*Generated: [Today's Date]*\n\n### [Competitor Name]\n**Key News:**\n- [Most significant finding] ([source](url))\n- [Second finding] ([source](url))\n\n**User Sentiment:** (if any findings)\n- [Sentiment finding] ([source](url))\n\n---\n\n(Repeat for each competitor)\n\nIf a competitor has no findings in any category, write:\n### [Competitor Name]\nNo significant updates found\n\n---\n\nRULES:\n- Maximum 5 bullet points per competitor total\n- Lead with the biggest news (funding rounds, major launches)\n- Include specific numbers when available ($100M raised, 23% growth, etc.)\n- Keep bullets concise—one line each\n- No duplicate information\n</output_format>\n\nAfter generating the markdown report, convert it to a clean HTML snippet (not full HTML document) suitable for email body, then send via Gmail."
+              "content": "=You are a competitive intelligence report writer.\n\n<input>\nYou have received research findings from two specialized agents:\n\n1. NEWS AGENT FINDINGS (funding, products, partnerships):\n{{ $('Sequential News Agent').item.json.output }}\n\n2. SENTIMENT AGENT FINDINGS (user feedback, issues):\n{{ $('Sequential Sentiment Agent').item.json.output }}\n</input>\n\n<task>\n1. Parse both JSON inputs\n2. Merge findings by competitor\n3. Deduplicate any overlapping news (same story from both agents)\n4. Prioritize by significance: funding > products > partnerships > sentiment\n5. Format into the final report structure below as HTML\n</task>\n\n<output_format>\nGenerate a clean markdown report:\n\n## Competitor Monitoring Report (Last 30 Days)\n*Generated: [Today's Date]*\n\n### [Competitor Name]\n**Key News:**\n- [Most significant finding] ([source](url))\n- [Second finding] ([source](url))\n\n**User Sentiment:** (if any findings)\n- [Sentiment finding] ([source](url))\n\n---\n\n(Repeat for each competitor)\n\nIf a competitor has no findings in any category, write:\n### [Competitor Name]\nNo significant updates found\n\n---\n\nRULES:\n- Maximum 5 bullet points per competitor total\n- Lead with the biggest news (funding rounds, major launches)\n- Include specific numbers when available ($100M raised, 23% growth, etc.)\n- Keep bullets concise\u2014one line each\n- No duplicate information\n</output_format>\n\nAfter generating the markdown report, convert it to a clean HTML snippet (not full HTML document) suitable for email body, then send via Gmail."
             }
           ]
         },
@@ -958,8 +958,8 @@
       "name": "Synthesize data",
       "credentials": {
         "openAiApi": {
-          "id": "fXxJk54TVuaLKpA0",
-          "name": "OpenAi account"
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
         }
       }
     },
@@ -984,8 +984,8 @@
       "name": "OpenAI Chat Model1",
       "credentials": {
         "openAiApi": {
-          "id": "fXxJk54TVuaLKpA0",
-          "name": "OpenAi account"
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
         }
       }
     }
@@ -1446,7 +1446,7 @@
   "versionId": "4c7a6064-16da-4c5a-8cad-61462d5ff7d2",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "588ff3306f03a6f01ec43b98ef52a37105af90ec6afe9a80d7b2657449961d3d"
+    "instanceId": "your-instance-id"
   },
   "id": "BtnGaAsWQiMEoCwt",
   "tags": []
