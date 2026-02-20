@@ -1,0 +1,654 @@
+{
+  "name": "Twitter Account Data - Save to Vector Store",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        -96
+      ],
+      "id": "02e20093-21fb-454d-b65c-110ef382698d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "searchText": "=from:{{ $json.username }}",
+        "limit": 10,
+        "additionalFields": {
+          "tweetFieldsObject": [
+            "public_metrics",
+            "created_at"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        336,
+        80
+      ],
+      "id": "be9f7a30-8d61-4bef-8bcd-46183b15ad5e",
+      "name": "Search Tweets",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "your-credential-id",
+          "name": "Your X/Twitter Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        176,
+        -128
+      ],
+      "id": "e518dd76-a863-4851-8ecf-5284e4549ebd",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "your-accounts-spreadsheet-id",
+          "mode": "list",
+          "cachedResultName": "Twitter Product and tech accounts",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-accounts-spreadsheet-id/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-accounts-spreadsheet-id/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -368,
+        -96
+      ],
+      "id": "30e49275-067e-40d5-b5d5-87c30c289c3f",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cb464638-1430-4af3-8a4e-91a922821f6c",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "ec6e2e14-b4b6-4f35-be9c-3c40b93c7da9",
+              "name": "text",
+              "value": "={{ $json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "7c1552cc-235b-4307-a6d0-bd85fbdf7775",
+              "name": "influencer_name",
+              "value": "={{ $('Get list of users to verify').item.json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "237f0f4c-bd1a-403e-ae2c-adee60895c68",
+              "name": "influencer_handle",
+              "value": "={{ $('Get list of users to verify').item.json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "7129039c-a107-4576-a020-4be1b8aeb797",
+              "name": "retweets",
+              "value": "={{ $json.public_metrics.retweet_count }}",
+              "type": "number"
+            },
+            {
+              "id": "fbfae31d-d3a5-4369-b2a5-01f925099f9a",
+              "name": "replies",
+              "value": "={{ $json.public_metrics.reply_count }}",
+              "type": "number"
+            },
+            {
+              "id": "9cc31bed-f0b3-4ced-9341-523726f0879b",
+              "name": "likes",
+              "value": "={{ $json.public_metrics.like_count }}",
+              "type": "number"
+            },
+            {
+              "id": "0a68d94b-7ef3-472a-baa0-83d07e7e38a4",
+              "name": "quotes",
+              "value": "={{ $json.public_metrics.quote_count }}",
+              "type": "number"
+            },
+            {
+              "id": "5c926574-c1d8-4df0-968b-5e78d65caaa4",
+              "name": "impressions",
+              "value": "={{ $json.public_metrics.impression_count }}",
+              "type": "number"
+            },
+            {
+              "id": "bf355a06-cb49-467d-88c8-9e2876823f60",
+              "name": "created_at",
+              "value": "={{ $json.created_at }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        560,
+        80
+      ],
+      "id": "2183373d-e5f5-4e46-859a-07e2f1ec6e54",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -224
+      ],
+      "id": "d7b3abfe-8ed0-46ac-b42e-daa991387a7b",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "jsCode": "// The Aggregate node wraps items in a 'data' field\nconst tweets = $input.first().json.data;\n\n// Filter and clean\nconst cleanedTweets = tweets\n  .filter(tweet => {\n    // Remove if no text or ID\n    if (!tweet.text || !tweet.id) {\n      return false;\n    }\n    \n    // Remove retweets\n    if (tweet.text.startsWith('RT @')) {\n      return false;\n    }\n    \n    // Remove very short tweets\n    if (tweet.text.trim().length < 10) {\n      return false;\n    }\n    \n    return true;\n  });\n\n// Deduplicate by tweet ID\nconst seen = new Set();\nconst deduplicated = cleanedTweets.filter(tweet => {\n  if (seen.has(tweet.id)) {\n    return false;\n  }\n  seen.add(tweet.id);\n  return true;\n});\n\nconsole.log(`Started with: ${tweets.length}`);\nconsole.log(`After cleaning: ${deduplicated.length}`);\n\n// Return the cleaned tweets\nreturn deduplicated;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        -224
+      ],
+      "id": "eeacf06a-a31f-4346-8e0b-decd6e3d90b6",
+      "name": "Clean and Deduplicate"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nreturn items\n  .filter(item => item.json.Handle && item.json.Handle.trim() !== '')\n  .map(item => ({\n    username: item.json.Handle.replace('@', '').trim(),\n    name: item.json.Name,\n    about: item.json.About\n  }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        -96
+      ],
+      "id": "ab264920-3efc-441e-aa3b-fae9fbd1ff4e",
+      "name": "Get list of users to verify"
+    },
+    {
+      "parameters": {
+        "jsCode": "const tweets = $input.all();\n\nreturn tweets.map(tweet => {\n  const engagement = (tweet.json.likes || 0) + (tweet.json.retweets || 0) + (tweet.json.replies || 0) + (tweet.json.quotes || 0);\n\n  return {\n    pageContent: `Tweet by ${tweet.json.influencer_name} (@${tweet.json.influencer_handle}): ${tweet.json.text}`,\n    metadata: {\n      source_type: 'twitter',\n      source_id: tweet.json.id,\n      author_name: tweet.json.influencer_name,\n      author_handle: tweet.json.influencer_handle,\n      created_at: tweet.json.created_at,\n      likes: tweet.json.likes || 0,\n      retweets: tweet.json.retweets || 0,\n      replies: tweet.json.replies || 0,\n      quotes: tweet.json.quotes || 0,\n      impressions: tweet.json.impressions || 0,\n      total_engagement: engagement,\n      url: `https://twitter.com/${tweet.json.influencer_handle}/status/${tweet.json.id}`\n    }\n  };\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        -480
+      ],
+      "id": "842d63f4-0d7a-41b9-bb8c-e427659363cd",
+      "name": "Prepare for embedding"
+    },
+    {
+      "parameters": {
+        "modelName": "embed-english-light-v2.0"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsCohere",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        -336
+      ],
+      "id": "a830abb0-776d-474a-b955-b25813a66413",
+      "name": "Embeddings Cohere",
+      "credentials": {
+        "cohereApi": {
+          "id": "your-credential-id",
+          "name": "Your Cohere API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        1136,
+        -592
+      ],
+      "id": "140be328-8a2a-4cde-a11e-4a0937e682fa",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "your-credential-id",
+          "name": "Your Supabase Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.pageContent }}",
+        "options": {
+          "metadata": {
+            "metadataValues": [
+              {
+                "name": "=source type",
+                "value": "={{ $json.metadata.source_type }}"
+              },
+              {
+                "name": "author_name",
+                "value": "={{ $json.metadata.author_name }}"
+              },
+              {
+                "name": "created_at",
+                "value": "={{ $json.metadata.created_at }}"
+              },
+              {
+                "name": "likes",
+                "value": "={{ $json.metadata.likes }}"
+              },
+              {
+                "name": "retweets",
+                "value": "={{ $json.metadata.retweets }}"
+              },
+              {
+                "name": "replies",
+                "value": "={{ $json.metadata.replies }}"
+              },
+              {
+                "name": "url",
+                "value": "={{ $json.metadata.url }}"
+              },
+              {
+                "name": "impressions",
+                "value": "={{ $json.metadata.impressions }}"
+              }
+            ]
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        1280,
+        -384
+      ],
+      "id": "caf9f0b1-c0c8-4f06-a73f-d72f1cbe6555",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "your-tweets-spreadsheet-id",
+          "mode": "list",
+          "cachedResultName": "Tweets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-tweets-spreadsheet-id/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-tweets-spreadsheet-id/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tweet_id": "={{ $json.tweet_id }}",
+            "tweet_text": "={{ $json.tweet_text }}",
+            "tweet_url": "={{ $json.tweet_url }}",
+            "author_username": "={{ $json.author_username }}",
+            "author_name": "={{ $json.author_name }}",
+            "likes": "={{ $json.likes }}",
+            "retweets": "={{ $json.retweets }}",
+            "replies": "={{ $json.replies }}",
+            "quotes": "={{ $json.quotes }}",
+            "impressions": "={{ $json.impressions }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "tweet_id",
+              "displayName": "tweet_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tweet_text",
+              "displayName": "tweet_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tweet_url",
+              "displayName": "tweet_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "author_username",
+              "displayName": "author_username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "author_name",
+              "displayName": "author_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "author_about",
+              "displayName": "author_about",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "likes",
+              "displayName": "likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "retweets",
+              "displayName": "retweets",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "replies",
+              "displayName": "replies",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "quotes",
+              "displayName": "quotes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "impressions",
+              "displayName": "impressions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "b486dc9c-88a3-4743-beb6-f27fc9a29fd0",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const tweets = $input.all();\n\nreturn tweets.map(tweet => ({\n  tweet_id: tweet.json.id,\n  tweet_text: tweet.json.text,\n  tweet_url: `https://twitter.com/${tweet.json.influencer_handle}/status/${tweet.json.id}`,\n  created_at: tweet.json.created_at,\n  author_username: tweet.json.influencer_handle,\n  author_name: tweet.json.influencer_name,\n  likes: tweet.json.likes || 0,\n  retweets: tweet.json.retweets || 0,\n  replies: tweet.json.replies || 0,\n  quotes: tweet.json.quotes || 0,\n  impressions: tweet.json.impressions || 0\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        0
+      ],
+      "id": "2da7905c-03ab-46c0-bdd3-0f1aea2ba4e2",
+      "name": "Prepare for sheets"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Search Tweets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Get list of users to verify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Tweets": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Clean and Deduplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get list of users to verify": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Clean and Deduplicate": {
+      "main": [
+        [
+          {
+            "node": "Prepare for embedding",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare for sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for embedding": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Cohere": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare for sheets": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "a7929338-fd19-40cd-a87f-5772cf111951",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "your-instance-id"
+  },
+  "id": "QCHZJtM6f9NGUBk5biTaB",
+  "tags": []
+}

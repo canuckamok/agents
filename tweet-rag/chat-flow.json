@@ -1,0 +1,257 @@
+{
+  "name": "Product Management Chat Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "861409b1-f00d-498b-8ec3-d898767c5b7c",
+      "name": "When chat message received",
+      "webhookId": "your-webhook-id"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "# Role\nYou are a research assistant who helps the user understand what's trending in AI, product management, and the startup space. You have access to a curated knowledge base of recent tweets, articles, and LinkedIn posts from top voices in the industry, as well as a structured Google Sheet of all ingested tweets with their engagement metrics.\n\nYour job is to complete the user's request end-to-end using the available tools. Ask clarifying questions if the task is unclear. If the task is clear, proceed until the task is completed.\n\n# Core Loop (STRICT)\nRun the following loop until the task is fully complete.\n\n1. PLAN\n- Create a concise plan describing what to search, which tools to call, and what outputs are required.\n- Store the plan in the Think tool.\n\n2. EXECUTE\n- Use tools to gather data, validate findings, refine queries, and fill gaps.\n- If results are insufficient, automatically broaden scope, change angles, or retry with adjusted searches — for example, try different keywords or query the Sheets tool if the vector search is too narrow.\n- Do not stop because of missing data; adapt and continue.\n\n3. UPDATE\n- After each tool call, evaluate the result.\n- Update the plan and store the new plan in the Think tool.\n\n4. FINISH\n- Stop only when every part of the user's request is completed and all outputs are created.\n\n# TOOL RULES\n\n## THINK TOOL\nUse this as your working memory and scratchpad.\nDocument:\n- Current plan\n- Progress across steps\n- Summaries of findings\n- Decisions and assumptions\n- Keep it concise. Do not store large text.\n\n## search_tweet_database (Vector Store)\nUse this to semantically search across all stored content — tweets, articles, and LinkedIn posts.\n- Use this first for any question about topics, themes, opinions, or ideas\n- Query with descriptive, concept-level phrases rather than exact keywords — for example: \"concerns about AI replacing product managers\" rather than \"AI PM\"\n- If the first query returns weak results, retry with a broader or differently-worded query before switching to another tool\n- Results include source type (tweet, article, linkedin), author, URL, and engagement metrics where available\n\n## tweet_sheet (Google Sheets)\nUse this to look up structured tweet data — especially when the user needs exact engagement numbers, wants to sort or rank by metrics, or is asking questions like \"what were the most liked tweets this week\" or \"show me everything from @handle\".\n- Use this when the vector search returns good thematic results but you need precise metric data to rank or compare\n- Use this when the user asks explicitly about a specific account or handle\n- The sheet contains: tweet_id, tweet_text, tweet_url, author_username, author_name, likes, retweets, replies, quotes, impressions\n\n# Capabilities and Limitations\nYou can search and synthesize content from the vector database and the tweet sheet.\nYou cannot add new content to the database — ingestion is handled by a separate workflow.\nYou cannot access real-time Twitter, LinkedIn, or the web — only what has been ingested.\n\n# General Rules\n\nALWAYS\n- Write in English\n- Be concise but helpful\n- Cite the original author, content type (tweet / article / LinkedIn), and source URL for every specific piece of content you reference\n- Include engagement context when relevant — e.g. \"this tweet received 4,200 likes\"\n- Cross-reference across content types when relevant — surface the article AND the tweets reacting to it if both exist\n\nNEVER\n- Fabricate quotes, tweets, or articles\n- Attribute a statement to someone unless it is explicitly in the data you retrieved\n- Use information outside of what the tools returned\n- Speculate about what someone believes or has said if it is not in the database\n\n# Output Format\n- Structured, clean summaries only\n- No filler\n- Group by content type (Articles / Tweets / LinkedIn) when returning mixed results, unless the user asks for a different format\n- Always include a source URL for every item referenced\n- If the database does not contain enough to answer the question, say so clearly and suggest what the user could search for manually"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "e2cd9c6b-d872-4714-a450-643f81d33f8b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.2",
+          "mode": "list",
+          "cachedResultName": "gpt-5.2"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "b5a75c67-1692-40f2-aad2-fd1c7b5fe335",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "your-credential-id",
+          "name": "Your OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "f2cb71c3-d72a-4d87-a583-da8c9092f24c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "modelName": "embed-english-light-v2.0"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsCohere",
+      "typeVersion": 1,
+      "position": [
+        320,
+        416
+      ],
+      "id": "73e3c831-3a58-4951-b0f5-3ac499d38189",
+      "name": "Embeddings Cohere",
+      "credentials": {
+        "cohereApi": {
+          "id": "your-credential-id",
+          "name": "Your Cohere API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Search a curated database of tweets from influential product, tech, and startup accounts on Twitter/X. Use this tool whenever the user asks about tweet content, specific authors, topics being discussed, trending opinions, or engagement metrics. Input should be a descriptive search query representing what you want to find — for example: \"AI product launches\", \"startup funding opinions from founders\", or \"tweets about shipping fast\". Returns the most semantically similar tweets along with author info, engagement data, and a direct URL.",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "topK": 10,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        224
+      ],
+      "id": "b45b304e-de5c-47df-adad-93e4e3d586a0",
+      "name": "search_tweet_database",
+      "credentials": {
+        "supabaseApi": {
+          "id": "your-credential-id",
+          "name": "Your Supabase Account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        864,
+        224
+      ],
+      "id": "00dcda20-bd97-491d-9890-144eae2f43e3",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "your-spreadsheet-id",
+          "mode": "list",
+          "cachedResultName": "Tweets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        672,
+        224
+      ],
+      "id": "4dd982bd-ed9f-40cb-871a-0efc5c1eb911",
+      "name": "tweet_sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "your-credential-id",
+          "name": "Your Google Sheets Account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Cohere": {
+      "ai_embedding": [
+        [
+          {
+            "node": "search_tweet_database",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "search_tweet_database": {
+      "ai_vectorStore": [
+        []
+      ],
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "tweet_sheet": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "055ad87a-3de4-4442-bb84-330bc44e2247",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "your-instance-id"
+  },
+  "id": "yRmttIGreWWqM20wEBFVD",
+  "tags": []
+}
