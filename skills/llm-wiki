@@ -1,0 +1,118 @@
+---
+name: "llm-wiki-setup"
+description: "Set up a Karpathy-style self-maintaining LLM wiki: bootstrap from existing knowledge, test, self-improve, and automate nightly updates."
+---
+
+# LLM Wiki Setup (Karpathy Style)
+
+A Karpathy-style LLM wiki is a **persistent, compounding knowledge base** your AI maintains. Unlike RAG — where the LLM re-derives answers from raw docs on every query — the wiki is *compiled once and kept current*. Cross-references, contradictions, and synthesis are already baked in. The wiki gets richer with every source and every question.
+
+> Source: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+
+---
+
+## The core idea
+
+Three layers:
+
+| Layer | Who owns it | What it is |
+|---|---|---|
+| **Raw sources** | You | Articles, transcripts, docs — immutable, LLM reads only |
+| **The wiki** | LLM | A directory of markdown files — summaries, entity pages, concept pages, synthesis |
+| **The schema** | Both | `AGENTS.md` / `CLAUDE.md` — tells the LLM how the wiki is structured and how to maintain it |
+
+Two special files:
+- **`index.md`** — content-oriented catalog of every page; LLM reads this first when answering queries
+- **`log.md`** — append-only chronological record of ingests, queries, lint passes
+
+---
+
+## Step 1 — Seed the system design
+
+Give your AI the Karpathy article and a single prompt:
+
+> "Read this article: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f
+> Design a wiki system for yourself based on this approach — directory structure, file format, schema conventions, update cadence, what goes in it, and how you'll maintain it."
+
+Let the AI propose the schema. Don't over-specify. The goal is for the AI to own the architecture and co-evolve the schema with you.
+
+**Inputs:** Karpathy article URL
+**Outputs:** Proposed directory layout, schema doc (`AGENTS.md` or `CLAUDE.md`), page format conventions
+
+---
+
+## Step 2 — Bootstrap from existing knowledge
+
+Once the schema is agreed, prompt:
+
+> "Bootstrap your LLM wiki now based on everything you already know — about this project, this codebase, these tools, and how you work. Populate `index.md` and create initial pages. Append a first entry to `log.md`."
+
+The AI populates from memory, prior conversations, and any existing docs. This is the cold-start fill — no sources needed.
+
+**Inputs:** Existing memory files, project docs, conversation history
+**Outputs:** Initial wiki (`wiki/index.md`, `wiki/log.md`, topic pages like `wiki/tools.md`, `wiki/patterns.md`, `wiki/domain.md`)
+
+---
+
+## Step 3 — Test and self-improve
+
+Stress-test with real queries:
+
+> "Query your wiki for [X topic]. Is the answer there? Accurate? What's missing or stale? Update it."
+
+Repeat 3–5 times. Then lint:
+
+> "Health-check the wiki. Look for: contradictions between pages, stale claims, orphan pages, missing cross-references, important concepts without their own page. Suggest what to investigate next."
+
+File good answers back into the wiki — comparisons, analyses, connections discovered. Explorations should compound, not disappear into chat history.
+
+**Inputs:** Sample questions from real work
+**Outputs:** Gaps identified, wiki updated, self-critique in `log.md`
+
+---
+
+## Step 4 — Automate nightly updates
+
+Set up a scheduled job that runs at end of day:
+
+> "Review today's work. Update the wiki with anything new: tools used, patterns discovered, decisions made, things that broke and why. Update `index.md` if new pages were added. Append to `log.md`."
+
+### OpenClaw (cron example)
+```json
+{
+  "schedule": { "kind": "cron", "expression": "0 23 * * *" },
+  "prompt": "Review today's session logs and update the LLM wiki with new patterns, tool usage, and decisions. Write changes to wiki/. Update index.md. Append to log.md."
+}
+```
+
+### n8n
+Schedule Trigger at 11 PM → AI Agent node with the same prompt, pointed at the wiki directory.
+
+**Inputs:** Daily session logs, memory files, any new docs
+**Outputs:** Updated wiki pages, `index.md` refreshed, `log.md` appended
+
+---
+
+## Ingest flow (for new sources)
+
+When adding a new raw source:
+1. LLM reads it, discusses key takeaways
+2. Writes a summary page in the wiki
+3. Updates `index.md`
+4. Updates relevant entity/concept pages across the wiki (a single source may touch 10–15 pages)
+5. Appends to `log.md`
+
+Stay involved during ingest — read the summaries, guide what to emphasize.
+
+---
+
+## Tips
+
+- **Schema first** — the `AGENTS.md`/`CLAUDE.md` schema is what makes the LLM a disciplined wiki maintainer, not a generic chatbot. Evolve it together.
+- **One file per domain** — tools, domain knowledge, patterns, people, decisions. Small, linkable pages beat one giant file.
+- **Human-readable** — if it's only useful to the AI, it's not durable enough.
+- **`index.md` scales surprisingly far** — at ~100 sources / hundreds of pages, a well-maintained index file beats embedding-based RAG infrastructure.
+- **File answers back** — comparisons, analyses, and discoveries are valuable wiki pages, not disposable chat.
+- **Git the wiki** — version history, branching, and collaboration for free.
+- **Obsidian as IDE** — graph view shows hubs and orphans; Web Clipper converts articles to markdown; Marp renders slides from wiki content.
+- The LLM doesn't get bored and won't forget to update a cross-reference. Humans abandon wikis because maintenance cost grows faster than value. Here, maintenance cost is near zero.
